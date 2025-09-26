@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>📚Расписание 1А класса</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --header-bg: #87CEEB;
+            --header-border: #5F9EA0;
+            --primary-color: #4a90e2;
+            --gradient-start: #667eea;
+            --gradient-end: #764ba2;
+        }
+        body {
+            font-family: 'Segoe UI', 'Comic Sans MS', sans-serif;
+            /* Градиент неба от светло-голубого к более насыщенному */
+            background: linear-gradient(180deg, #B0E2FF 0%, #87CEEB 30%, #87CEEB 70%, #4A90E2 100%);
+            color: #333;
+            margin: 0;
+            padding: 10px;
+            line-height: 1.5;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        /* Стили для облаков */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            filter: blur(15px);
+            z-index: -1;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+        .cloud:nth-child(1) {
+            width: 120px;
+            height: 50px;
+            top: 8%;
+            left: 5%;
+            animation: float 25s infinite ease-in-out;
+        }
+        .cloud:nth-child(2) {
+            width: 180px;
+            height: 70px;
+            top: 20%;
+            right: 10%;
+            animation: float 30s infinite ease-in-out reverse;
+        }
+        .cloud:nth-child(3) {
+            width: 150px;
+            height: 60px;
+            bottom: 30%;
+            left: 15%;
+            animation: float 35s infinite ease-in-out;
+        }
+        .cloud:nth-child(4) {
+            width: 200px;
+            height: 80px;
+            top: 35%;
+            right: 20%;
+            animation: float 40s infinite ease-in-out reverse;
+        }
+        .cloud:nth-child(5) {
+            width: 100px;
+            height: 40px;
+            bottom: 15%;
+            right: 25%;
+            animation: float 28s infinite ease-in-out;
+        }
+        /* Анимация парения облаков */
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(10px, 15px);
+            }
+            50% {
+                transform: translate(20px, 0);
+            }
+            75% {
+                transform: translate(10px, -15px);
+            }
+        }
+        header {
+            text-align: center;
+            background-color: var(--header-bg);
+            color: white;
+            padding: 12px 10px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            position: relative;
+            border: 2px solid var(--header-border);
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            margin: 5px 0 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .meal-link-container {
+            margin-top: 10px;
+        }
+        .meal-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4A90E2, #5F9EA0);
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 2px solid white;
+            position: relative;
+            overflow: hidden;
+            margin: 0 5px; /* Добавлен отступ */
+        }
+        .meal-link:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #357ABD, #4682B4);
+        }
+        .meal-link:active {
+            transform: translateY(0) scale(1);
+        }
+        .meal-link::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .meal-link:hover::before {
+            left: 100%;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 100px;
+            white-space: nowrap;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        button.active {
+            background-color: var(--primary-color);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        /* Цвета по дням */
+        button:nth-child(1) { background-color: #ff6b6b; } /* Пн — красный */
+        button:nth-child(2) { background-color: #4ecdc4; } /* Вт — бирюзовый */
+        button:nth-child(3) { background-color: #45b7d1; } /* Ср — голубой */
+        button:nth-child(4) { background-color: #96ceb4; } /* Чт — зелёный */
+        button:nth-child(5) { background-color: #f9cb9c; } /* Пт — оранжевый */
+        /* Новый стиль для кнопки "Каникулы" */
+        button:nth-child(6) { 
+            background-color: #dda0dd; /* Сливовый цвет */
+            color: #fff; 
+        } 
+        .schedule {
+            display: none;
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid var(--header-border);
+        }
+        .schedule.show {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px 8px;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+        th {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        th:first-child, td:first-child {
+            text-align: center;
+            width: 40px;
+        }
+        tr:nth-child(even) {
+            background-color: #f0f4f8;
+        }
+        tr:hover {
+            background-color: #e9f5ff;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.8rem;
+            padding: 8px;
+            border-radius: 8px;
+        }
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 600px) {
+            body {
+                padding: 8px;
+            }
+            header {
+                padding: 10px 8px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            .meal-link {
+                padding: 8px 16px;
+                font-size: 1rem;
+            }
+            .container {
+                padding: 12px;
+            }
+            .buttons {
+                gap: 6px;
+                margin-bottom: 15px;
+            }
+            button {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+                min-width: 85px;
+            }
+            th, td {
+                padding: 8px 6px;
+                font-size: 0.9rem;
+            }
+            footer {
+                font-size: 0.75rem;
+                margin-top: 15px;
+            }
+        }
+        @media (max-width: 400px) {
+            .meal-link {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            button {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+                min-width: 80px;
+            }
+            th, td {
+                padding: 7px 5px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Облака -->
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <header>
+        <h1>📚 Расписание 1 «А»</h1>
+        <div class="meal-link-container">
+            <a href="https://artignat2000.github.io/meal-schedule/" class="meal-link">🍽️ ПИТАНИЕ</a>
+            <a href="https://artignat2000.github.io/RaspisCanicyl/" class="meal-link">🌴 КАНИКУЛЫ</a>
+        </div>
+    </header>
+    <div class="container">
+        <div class="buttons">
+            <button onclick="showDay('pn')" class="active">Пн</button>
+            <button onclick="showDay('vt')">Вт</button>
+            <button onclick="showDay('sr')">Ср</button>
+            <button onclick="showDay('cht')">Чт</button>
+            <button onclick="showDay('pt')">Пт</button>
+        </div>
+        <!-- Расписание по дням -->
+        <div id="pn" class="schedule show">
+            <table>
+                <tr><th>№</th><th>Время</th><th>Урок</th></tr>
+                <tr><td>1</td><td>8:30–9:10</td><td>🌍 Окружающий мир</td></tr>
+                <tr><td>2</td><td>9:30–10:10</td><td>✏️ Письмо</td></tr>
+                <tr><td>3</td><td>10:30–11:10</td><td>🧮 Математика</td></tr>
+                <tr><td>4</td><td>11:20–12:00</td><td>🏃 Динамическая пауза</td></tr>
+                <tr><td>5</td><td>12:10–12:50</td><td>📖 Азбука</td></tr>
+                <tr><td>6</td><td>13:10</td><td>👩‍🏫 Классный час/портфолио</td></tr>
+                <tr><td>7</td><td>14:00</td><td>🌐 Английский язык (1 группа) / IT</td></tr>
+                <tr><td>8</td><td>14:40–15:20</td><td>🎮 Спортивный час/развивающие игры (группа 1) / Английский язык (группа 2)</td></tr>
+            </table>
+        </div>
+        <div id="vt" class="schedule">
+            <table>
+                <tr><th>№</th><th>Время</th><th>Урок</th></tr>
+                <tr><td>1</td><td>8:30–9:10</td><td>✏️ Письмо</td></tr>
+                <tr><td>2</td><td>9:30–10:10</td><td>📖 Азбука</td></tr>
+                <tr><td>3</td><td>10:30–11:10</td><td>🏃 Динамическая пауза</td></tr>
+                <tr><td>4</td><td>11:20–12:00</td><td>🧮 Математика</td></tr>
+                <tr><td>5</td><td>12:10–12:50</td><td>🎵 Музыка</td></tr>
+                <tr><td>6</td><td>13:10</td><td>🌍 Окружающий мир</td></tr>
+                <tr><td>7</td><td>14:00</td><td>🌊 Бассейн</td></tr>
+            </table>
+        </div>
+        <div id="sr" class="schedule">
+            <table>
+                <tr><th>№</th><th>Время</th><th>Урок</th></tr>
+                <tr><td>1</td><td>8:30–9:10</td><td>✏️ Письмо</td></tr>
+                <tr><td>2</td><td>9:30–10:10</td><td>📖 Азбука</td></tr>
+                <tr><td>3</td><td>10:30–11:10</td><td>🏃 Динамическая пауза</td></tr>
+                <tr><td>4</td><td>11:20–12:00</td><td>🧮 Математика</td></tr>
+                <tr><td>5</td><td>12:10–12:50</td><td>🏃 Физкультура</td></tr>
+                <tr><td>6</td><td>14:40</td><td>🌐 Английский язык (группа 1)</td></tr>
+                <tr><td>7</td><td>15:20</td><td>🌐 Английский язык/спортивный час</td></tr>
+            </table>
+        </div>
+        <div id="cht" class="schedule">
+            <table>
+                <tr><th>№</th><th>Время</th><th>Урок</th></tr>
+                <tr><td>1</td><td>8:30–9:10</td><td>✏️ Письмо</td></tr>
+                <tr><td>2</td><td>9:30–10:10</td><td>📖 Азбука</td></tr>
+                <tr><td>3</td><td>10:30–11:10</td><td>🏃 Динамическая пауза</td></tr>
+                <tr><td>4</td><td>11:20–12:00</td><td>🧮 Математика</td></tr>
+                <tr><td>5</td><td>12:10–12:50</td><td>🎨 ИЗО</td></tr>
+                <tr><td>6</td><td>13:20</td><td>💻 IT</td></tr>
+            </table>
+        </div>
+        <div id="pt" class="schedule">
+            <table>
+                <tr><th>№</th><th>Время</th><th>Урок</th></tr>
+                <tr><td>1</td><td>8:30–9:10</td><td>✏️ Письмо</td></tr>
+                <tr><td>2</td><td>9:30–10:10</td><td>🧮 Математика</td></tr>
+                <tr><td>3</td><td>10:30–11:10</td><td>🏃 Динамическая пауза</td></tr>
+                <tr><td>4</td><td>11:20–12:00</td><td>🔧 Технология</td></tr>
+                <tr><td>5</td><td>12:10–12:50</td><td>🏃 Физкультура</td></tr>
+                <tr><td>6</td><td>14:40</td><td>🎮 Развивающие игры</td></tr>
+            </table>
+        </div>
+    </div>
+    <footer>
+        &copy; 2025
+    </footer>
+    <script>
+        // Обработчик для ссылки "ПИТАНИЕ"
+        document.querySelector('.meal-link[href*="meal-schedule"]').addEventListener('click', function(event) {
+            // Предотвращаем переход по ссылке по умолчанию
+            event.preventDefault();
+            // Получаем URL из атрибута href
+            const url = this.getAttribute('href').trim(); // Удаляем пробелы
+            // Открываем URL в текущем окне
+            window.location.href = url;
+        });
+        // Обработчик для ссылки "КАНИКУЛЫ"
+        document.querySelector('.meal-link[href*="RaspisCanicyl"]').addEventListener('click', function(event) {
+            // Предотвращаем переход по ссылке по умолчанию
+            event.preventDefault();
+            // Получаем URL из атрибута href
+            const url = this.getAttribute('href').trim(); // Удаляем пробелы
+            // Открываем URL в текущем окне
+            window.location.href = url;
+        });
+        function showDay(day) {
+            // Если нажата кнопка "Каникулы", открываем в текущем окне и выходим
+            if (day === 'holidays') {
+                window.location.href = 'https://artignat2000.github.io/RaspisCanicyl/';
+                return;
+            }
+            document.querySelectorAll('.buttons button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Убираем активный класс с кнопки "Каникулы"
+            const holidayButton = document.querySelector('.buttons button:last-child');
+            if (holidayButton && holidayButton.textContent.includes('Каникулы')) {
+                holidayButton.classList.remove('active');
+            }
+            document.querySelector(`button[onclick="showDay('${day}')"]`).classList.add('active');
+            document.querySelectorAll('.schedule').forEach(schedule => {
+                schedule.classList.remove('show');
+            });
+            document.getElementById(day).classList.add('show');
+        }
+    </script>
+</body>
+</html>
