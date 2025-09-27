@@ -11,95 +11,45 @@ body {
 	background: linear-gradient(180deg, #B0E2FF 0%, #87CEEB 30%, #87CEEB 70%, #4A90E2 100%);
 	color: #333;
 	margin: 0;
-	padding: 10px;
-	line-height: 1.5;
-	position: relative;
-	min-height: 100vh;
-	overflow-x: hidden;
-}
-/* Стили для облаков */
-.cloud {
-	position: absolute;
-	background: rgba(255, 255, 255, 0.9);
-	border-radius: 50%;
-	filter: blur(15px);
-	z-index: -1;
-	box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-}
-.cloud:nth-child(1) {
-	width: 120px;
-	height: 50px;
-	top: 8%;
-	left: 5%;
-	animation: float 25s infinite ease-in-out;
-}
-.cloud:nth-child(2) {
-	width: 180px;
-	height: 70px;
-	top: 20%;
-	right: 10%;
-	animation: float 30s infinite ease-in-out reverse;
-}
 .cloud:nth-child(3) {
+	width: 150px;
+	height: 60px;
+	bottom: 30%;
+	left: 15%;
+	animation: float 35s infinite ease-in-out;
+}
 
-	:root {
-		--header-bg: #87CEEB;
-		--header-border: #5F9EA0;
-		--primary-color: #4a90e2;
-		--gradient-start: #667eea;
-		--gradient-end: #764ba2;
+.cloud:nth-child(4) {
+	width: 200px;
+	height: 80px;
+	top: 35%;
+	right: 20%;
+	animation: float 40s infinite ease-in-out reverse;
+}
+
+.cloud:nth-child(5) {
+	width: 100px;
+	height: 40px;
+	bottom: 15%;
+	right: 25%;
+	animation: float 28s infinite ease-in-out;
+}
+
+/* Анимация парения облаков */
+@keyframes float {
+	0%, 100% {
+		transform: translate(0, 0);
 	}
-
-	body {
-		font-family: 'Segoe UI', 'Comic Sans MS', sans-serif;
-		/* Градиент неба от светло-голубого к более насыщенному */
-		background: linear-gradient(180deg, #B0E2FF 0%, #87CEEB 30%, #87CEEB 70%, #4A90E2 100%);
-		color: #333;
-		margin: 0;
-		padding: 10px;
-		line-height: 1.5;
-		position: relative;
-		min-height: 100vh;
-		overflow-x: hidden;
+	25% {
+		transform: translate(10px, 15px);
 	}
-
-	/* Стили для облаков */
-	.cloud {
-		position: absolute;
-		background: rgba(255, 255, 255, 0.9);
-		border-radius: 50%;
-		filter: blur(15px);
-		z-index: -1;
-		box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+	50% {
+		transform: translate(20px, 0);
 	}
-
-	.cloud:nth-child(1) {
-		width: 120px;
-		height: 50px;
-		top: 8%;
-		left: 5%;
-		animation: float 25s infinite ease-in-out;
+	75% {
+		transform: translate(10px, -15px);
 	}
-
-	.cloud:nth-child(2) {
-		width: 180px;
-		height: 70px;
-		top: 20%;
-		right: 10%;
-		animation: float 30s infinite ease-in-out reverse;
-	}
-
-	.cloud:nth-child(3) {
-		width: 150px;
-		height: 60px;
-		bottom: 30%;
-		left: 15%;
-		animation: float 35s infinite ease-in-out;
-	}
-
-	.cloud:nth-child(4) {
-		width: 200px;
-		height: 80px;
+}
 		top: 35%;
 		right: 20%;
 		animation: float 40s infinite ease-in-out reverse;
