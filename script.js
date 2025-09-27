@@ -17,6 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			window.location.href = url;
 		});
 	}
+	// Навесим обработчики на кнопки дней (убираем inline onclick)
+	document.querySelectorAll('.buttons button[data-day]').forEach(btn => {
+		btn.addEventListener('click', function () {
+			const day = this.getAttribute('data-day');
+			showDay(day);
+		});
+	});
 });
 
 function showDay(day) {
@@ -35,10 +42,9 @@ function showDay(day) {
 		holidayButton.classList.remove('active');
 	}
 
-	const targetBtn = document.querySelector(`button[onclick="showDay('${day}')"]`);
-	if (targetBtn) {
-		targetBtn.classList.add('active');
-	}
+	// Найдём кнопку по data-day и установим её активной
+	const targetBtn = document.querySelector(`.buttons button[data-day="${day}"]`);
+	if (targetBtn) targetBtn.classList.add('active');
 
 	document.querySelectorAll('.schedule').forEach(schedule => {
 		schedule.classList.remove('show');
