@@ -369,6 +369,15 @@ header {
 		box-sizing: border-box;
 	}
 
+	/* Holidays page: stack header title and schedule button centered on separate lines */
+	.holidays-page .header-content {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+		padding: 10px 20px;
+	}
+
 	.btn-schedule {
 		padding: 10px 20px;
 		background: linear-gradient(135deg, #4A90E2, #5F9EA0);
