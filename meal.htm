@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>📚 Расписание питания</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=87WadDZg0f1GZJpffdZc5YrNw9asMiMWbOWQickOaojKCFrJOVmR5EXNACyC216Ei6GzGB06MU52iE6yeqLtQA" charset="UTF-8"></script><style>
+        :root {
+            --header-bg: #87CEEB;
+            --header-border: #5F9EA0;
+            --primary-color: #4a90e2;
+            --gradient-start: #667eea;
+            --gradient-end: #764ba2;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Comic Sans MS', sans-serif;
+            /* Градиент неба от светло-голубого к более насыщенному */
+            background: linear-gradient(180deg, #B0E2FF 0%, #87CEEB 30%, #87CEEB 70%, #4A90E2 100%);
+            color: #333;
+            margin: 0;
+            padding: 10px;
+            line-height: 1.5;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Стили для облаков */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            filter: blur(15px);
+            z-index: -1;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .cloud:nth-child(1) {
+            width: 120px;
+            height: 50px;
+            top: 8%;
+            left: 5%;
+            animation: float 25s infinite ease-in-out;
+        }
+
+        .cloud:nth-child(2) {
+            width: 180px;
+            height: 70px;
+            top: 20%;
+            right: 10%;
+            animation: float 30s infinite ease-in-out reverse;
+        }
+
+        .cloud:nth-child(3) {
+            width: 150px;
+            height: 60px;
+            bottom: 30%;
+            left: 15%;
+            animation: float 35s infinite ease-in-out;
+        }
+
+        .cloud:nth-child(4) {
+            width: 200px;
+            height: 80px;
+            top: 35%;
+            right: 20%;
+            animation: float 40s infinite ease-in-out reverse;
+        }
+
+        .cloud:nth-child(5) {
+            width: 100px;
+            height: 40px;
+            bottom: 15%;
+            right: 25%;
+            animation: float 28s infinite ease-in-out;
+        }
+
+        /* Анимация парения облаков */
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(10px, 15px);
+            }
+            50% {
+                transform: translate(20px, 0);
+            }
+            75% {
+                transform: translate(10px, -15px);
+            }
+        }
+
+        header {
+            text-align: center;
+            background-color: var(--header-bg);
+            color: white;
+            padding: 12px 10px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            position: relative;
+            border: 2px solid var(--header-border);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .meal-link-container {
+            margin-top: 10px;
+        }
+
+        .meal-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4A90E2, #5F9EA0);
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 2px solid white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meal-link:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #357ABD, #4682B4);
+        }
+
+        .meal-link:active {
+            transform: translateY(0) scale(1);
+        }
+
+        .meal-link::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .meal-link:hover::before {
+            left: 100%;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 10px;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f0f4f8;
+        }
+
+        tr:hover {
+            background-color: #e9f5ff;
+        }
+
+        .meal-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid var(--header-border);
+        }
+
+        .meal-section h2 {
+            margin-top: 0;
+            color: var(--header-border);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.8rem;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 600px) {
+            body {
+                padding: 8px;
+            }
+            
+            header {
+                padding: 10px 8px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .meal-link {
+                padding: 8px 16px;
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 12px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.9rem;
+            }
+            
+            footer {
+                font-size: 0.75rem;
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .meal-link {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Облака -->
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+
+    <header>
+        <h1>🍽️ Расписание питания</h1>
+        <div class="meal-link-container">
+            <a href="index.htm" class="meal-link">📚 РАСПИСАНИЕ</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="meal-section">
+            <h2>ЗАВТРАКИ</h2>
+            <table>
+                <tr><th>ВРЕМЯ</th><th>КЛАССЫ</th></tr>
+                <tr><td>09:10</td><td>1А, 1Б, 1В, 1Г, 5, 6</td></tr>
+                <tr><td>10:10</td><td>3В, 3Г, 4А, 4Б, 4В, 4Г, 7, 8, 9</td></tr>
+                <tr><td>11:00</td><td>2А, 2Б, 2В, 2Г, 3А, 3Б</td></tr>
+            </table>
+        </div>
+
+        <div class="meal-section">
+            <h2>ОБЕДЫ</h2>
+            <table>
+                <tr><th>ВРЕМЯ</th><th>КЛАССЫ</th></tr>
+                <tr><td>12:00</td><td>5-11</td></tr>
+                <tr><td>12:50</td><td>1А, 1Б, 1В, 1Г</td></tr>
+                <tr><td>13:50</td><td>3В, 3Г, 4А, 4Б, 4В, 4Г</td></tr>
+                <tr><td>14:40</td><td>2А, 2Б, 2В, 2Г, 3А, 3Б</td></tr>
+                <tr><td>12:00 – 14:00</td><td>РАЗДАЧА СО СВОБОДНЫМ ВЫБОРОМ БЛЮД</td></tr>
+            </table>
+        </div>
+
+        <div class="meal-section">
+            <h2>ПОЛДНИК 1-4</h2>
+            <table>
+                <tr><th>ВРЕМЯ</th><th>КЛАССЫ</th></tr>
+                <tr><td>16:00</td><td>Все классы 1-4</td></tr>
+            </table>
+        </div>
+
+        <div class="meal-section">
+            <h2>ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</h2>
+            <p><strong>ВРЕМЯ РАБОТЫ КАФЕ:</strong> 09:00 – 16:00</p>
+            <p><strong>ВРЕМЯ КВАРЦЕВАНИЯ:</strong> 07:00 – 07:45 / 16:15 – 17:30</p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025
+    </footer>
+
+    <script>
+        function goBack() {
+            // Переход на предыдущую страницу или на главную страницу расписания
+            window.location.href = 'https://artignat2000.github.io/';
+        }
+    </script>
+</body>
+</html>
