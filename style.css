@@ -27,13 +27,15 @@ body {
 }
 
 .cloud {
-	position: absolute; /* take clouds out of normal flow so they don't push content */
+	position: fixed; /* fixed so clouds never alter document flow */
 	background: rgba(255,255,255,0.9);
 	border-radius: 50%;
 	box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+	z-index: 1; /* keep clouds behind header */
+	pointer-events: none; /* allow clicks through clouds */
 }
 
-.cloud:nth-child(3) {
+.cloud.c3 {
 	width: 150px;
 	height: 60px;
 	top: 6%;
@@ -41,7 +43,7 @@ body {
 	animation: float 35s infinite ease-in-out;
 }
 
-.cloud:nth-child(4) {
+.cloud.c4 {
 	width: 200px;
 	height: 80px;
 	top: 8%;
@@ -49,13 +51,32 @@ body {
 	animation: float 40s infinite ease-in-out reverse;
 }
 
-.cloud:nth-child(5) {
+.cloud.c5 {
 	width: 100px;
 	height: 40px;
 	top: 2%;
 	right: 25%;
 	animation: float 28s infinite ease-in-out;
 }
+
+/* Explicit sizes for the first two clouds (they were not set before) */
+.cloud.c1 {
+	width: 120px;
+	height: 50px;
+	top: 4%;
+	left: 4%;
+	animation: float 30s infinite ease-in-out;
+}
+
+.cloud.c2 {
+	width: 90px;
+	height: 40px;
+	top: 5%;
+	left: 20%;
+	animation: float 32s infinite ease-in-out reverse;
+}
+
+/* Note: cloud placement is now deterministic via classes .c1..c5 so nth-child issues won't cause page-specific gaps */
 
 /* Анимация парения облаков */
 @keyframes float {

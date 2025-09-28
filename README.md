@@ -51,3 +51,55 @@ git push origin main
 ---
 
 Если нужно изменить формат README или добавить разделы — скажите, что именно добавить.
+
+## Деплой на GitHub Pages
+
+Ниже — два простых варианта публикации: ручной (через настройки репозитория) и автоматический (через GitHub Actions).
+
+Вариант A — опубликовать сайт из ветки `main` (корень репозитория)
+
+1. Перейдите в настройки репозитория на GitHub (Settings → Pages).
+2. В разделе "Build and deployment" (или "Source" в старом интерфейсе) выберите Branch: `main` и Folder: `/ (root)`.
+3. Нажмите "Save" (или "Save/Enable"). Через минуту-две GitHub Pages опубликует сайт. URL будет вида: `https://<username>.github.io/<repo>/` (для вашего репозитория это, вероятно, https://ArtIgnat2000.github.io/-1-/).
+
+Вариант B — опубликовать сайт из ветки `gh-pages`
+
+1. Создайте ветку `gh-pages` и запушьте в неё содержимое, которое вы хотите публиковать:
+
+```powershell
+# Создать ветку gh-pages на основе текущей main и запушить
+git checkout -b gh-pages
+git push -u origin gh-pages
+```
+
+2. В Settings → Pages выберите Branch: `gh-pages` и Folder: `/ (root)` и сохраните.
+
+Вариант C — автоматический деплой через GitHub Actions (рекомендуется для автоматизации)
+
+1. Создайте workflow файл `.github/workflows/gh-pages.yml` в репозитории. Пример минимального workflow, который публикует содержимое репозитория в `gh-pages` с помощью `peaceiris/actions-gh-pages`:
+
+```yaml
+name: GitHub Pages
+
+on:
+	push:
+		branches: [ main ]
+
+jobs:
+	deploy:
+		runs-on: ubuntu-latest
+		steps:
+			- uses: actions/checkout@v4
+			- name: Deploy to GitHub Pages
+				uses: peaceiris/actions-gh-pages@v3
+				with:
+					github_token: ${{ secrets.GITHUB_TOKEN }}
+					publish_dir: ./
+```
+
+2. Закоммитьте этот файл и запушьте в `main`. После каждого пуша в `main` workflow будет запускаться и обновлять ветку `gh-pages` (или публиковать содержимое в Pages — см. документацию action для настроек).
+
+Примечания:
+- Если у вас репозиторий-страница пользователя (user/organization site), имя ветки и настройка будут отличаться (обычно используется ветка `main` или `gh-pages` в зависимости от типа сайта).
+- Проверьте, чтобы на Pages не было конфликтов с приватностью репозитория и настройками доступа.
+

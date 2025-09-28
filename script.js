@@ -1,22 +1,16 @@
 // Обработчик для ссылок меню: открывает внешние страницы в текущем окне
 document.addEventListener('DOMContentLoaded', function () {
-	const mealLink = document.querySelector('.meal-link[href*="meal-schedule"]');
-	if (mealLink) {
-		mealLink.addEventListener('click', function (event) {
+	// Универсальный обработчик для всех ссылок .meal-link
+	document.querySelectorAll('.meal-link').forEach(link => {
+		link.addEventListener('click', function (event) {
 			event.preventDefault();
 			const url = this.getAttribute('href').trim();
+			// Открываем локальный файл, если он указан (например holidays.htm),
+			// иначе открываем внешнюю ссылку в том же окне.
 			window.location.href = url;
 		});
-	}
+	});
 
-	const holidayLink = document.querySelector('.meal-link[href*="RaspisCanicyl"]');
-	if (holidayLink) {
-		holidayLink.addEventListener('click', function (event) {
-			event.preventDefault();
-			const url = this.getAttribute('href').trim();
-			window.location.href = url;
-		});
-	}
 	// Навесим обработчики на кнопки дней (убираем inline onclick)
 	document.querySelectorAll('.buttons button[data-day]').forEach(btn => {
 		btn.addEventListener('click', function () {
@@ -29,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
 function showDay(day) {
 	// Если нажата кнопка "Каникулы", открываем в текущем окне и выходим
 	if (day === 'holidays') {
-		window.location.href = 'https://artignat2000.github.io/RaspisCanicyl/';
+		// Open local holidays page
+		window.location.href = 'holidays.htm';
 		return;
 	}
 
