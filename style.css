@@ -4,6 +4,7 @@
 	--primary-color: #4a90e2;
 	--gradient-start: #667eea;
 	--gradient-end: #764ba2;
+	--page-padding: 10px; /* horizontal page padding used consistently across pages */
 }
 
 html, body {
@@ -19,7 +20,7 @@ body {
 	color: #333;
 	margin: 0;
 	/* Убираем верхний отступ, оставляем горизонтальные отступы */
-	padding: 0 10px;
+	padding: 0 var(--page-padding);
 	line-height: 1.5;
 	position: relative;
 	min-height: 100vh;
@@ -98,7 +99,7 @@ header {
 	text-align: center;
 	background-color: var(--header-bg);
 	color: white;
-	padding: 12px 10px;
+	padding: 12px var(--page-padding);
 	margin: 0; /* ensure no gap above header */
 	border-radius: 12px;
 	margin-bottom: 15px;
