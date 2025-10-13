@@ -168,6 +168,11 @@ header {
 		left: 100%;
 	}
 
+	.center-button-container {
+		text-align: center;
+		margin: 20px 0;
+	}
+
 	.container {
 		max-width: 800px;
 		margin: 0 auto;
