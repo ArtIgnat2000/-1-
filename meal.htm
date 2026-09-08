@@ -1,73 +1,65 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>📚 Расписание питания</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Питание 2 «В»</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#4c6fff">
+    <meta name="description" content="Расписание питания 2 «В» класса — в стиле iOS 26">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Облака -->
-    <div class="cloud"></div>
-    <div class="cloud"></div>
-    <div class="cloud"></div>
-    <div class="cloud"></div>
-    <div class="cloud"></div>
-
-    <header>
-        <h1>🍽️ Расписание питания</h1>
-        <div class="meal-link-container">
-            <a href="index.htm" class="meal-link">📚 РАСПИСАНИЕ</a>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="meal-section">
-            <h2>ЗАВТРАКИ</h2>
-            <table>
-                <tr><th>ВРЕМЯ</th><th>КЛАССЫ</th></tr>
-                <tr><td>09:10</td><td>1А, 1Б, 1В, 1Г, 5, 6</td></tr>
-                <tr><td>10:10</td><td>3В, 3Г, 4А, 4Б, 4В, 4Г, 7, 8, 9</td></tr>
-                <tr><td>11:00</td><td>2А, 2Б, 2В, 2Г, 3А, 3Б</td></tr>
-            </table>
-        </div>
-
-        <div class="meal-section">
-            <h2>ОБЕДЫ</h2>
-            <table>
-                <tr><th>ВРЕМЯ</th><th>КЛАССЫ</th></tr>
-                <tr><td>12:00</td><td>5-11</td></tr>
-                <tr><td>12:50</td><td>1А, 1Б, 1В, 1Г</td></tr>
-                <tr><td>13:50</td><td>3В, 3Г, 4А, 4Б, 4В, 4Г</td></tr>
-                <tr><td>14:40</td><td>2А, 2Б, 2В, 2Г, 3А, 3Б</td></tr>
-                <tr><td>12:00 – 14:00</td><td>РАЗДАЧА СО СВОБОДНЫМ ВЫБОРОМ БЛЮД</td></tr>
-            </table>
-        </div>
-
-        <div class="meal-section">
-            <h2>ПОЛДНИК 1-4</h2>
-            <table>
-                <tr><th>ВРЕМЯ</th><th>КЛАССЫ</th></tr>
-                <tr><td>16:00</td><td>Все классы 1-4</td></tr>
-            </table>
-        </div>
-
-        <div class="meal-section">
-            <h2>ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</h2>
-            <p><strong>ВРЕМЯ РАБОТЫ КАФЕ:</strong> 09:00 – 16:00</p>
-            <p><strong>ВРЕМЯ КВАРЦЕВАНИЯ:</strong> 07:00 – 07:45 / 16:15 – 17:30</p>
-        </div>
+    <div class="bg" aria-hidden="true">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+        <div class="blob b4"></div>
+        <div class="blob b5"></div>
     </div>
 
-    <footer>
-        &copy; 2025
-    </footer>
+    <main class="app">
+        <header class="hero">
+            <div class="hero-icon food" aria-hidden="true">🍽️</div>
+            <div>
+                <h1>Питание</h1>
+                <div class="subtitle">2 «В» класс</div>
+                <div class="hero-date" id="heroDate"></div>
+            </div>
+        </header>
 
-    <script>
-        function goBack() {
-            // Переход на предыдущую страницу или на главную страницу расписания
-            window.location.href = 'https://artignat2000.github.io/';
-        }
-    </script>
+        <div class="segmented glass" role="tablist" aria-label="Приём пищи">
+            <div class="seg-indicator" aria-hidden="true"></div>
+            <button class="seg" type="button" role="tab" data-tab="all">Все</button>
+            <button class="seg" type="button" role="tab" data-tab="breakfast">Завтрак</button>
+            <button class="seg" type="button" role="tab" data-tab="lunch">Обед</button>
+            <button class="seg" type="button" role="tab" data-tab="snack">Полдник</button>
+        </div>
+
+        <section class="day-card glass" aria-label="Питание 2 «В»">
+            <div class="day-head">
+                <h2 id="tabTitle">Все приёмы пищи</h2>
+                <span id="nowChip" class="today-chip">Сейчас</span>
+            </div>
+            <div id="meals"></div>
+        </section>
+
+        <section class="rating-card glass" aria-label="Дополнительно">
+            <h3>Дополнительно</h3>
+            <div class="rate-row"><span class="rate-badge blue">12–14</span><span class="card-text">Раздача со свободным выбором блюд</span></div>
+            <div class="rate-row"><span class="rate-badge green">09–16</span><span class="card-text">Время работы кафе</span></div>
+            <div class="rate-row"><span class="rate-badge yellow">07 / 16</span><span class="card-text">Кварцевание: 07:00–07:45, 16:15–17:30</span></div>
+        </section>
+
+        <footer>© 2026 · Питание 2 «В» класса</footer>
+    </main>
+
+    <nav class="dock glass" aria-label="Разделы">
+        <a href="index.htm" class="dock-btn"><span class="dock-ico" aria-hidden="true">📚</span><span>Уроки</span></a>
+        <a href="meal.htm" class="dock-btn active" aria-current="page"><span class="dock-ico" aria-hidden="true">🍽️</span><span>Еда</span></a>
+        <a href="holidays.htm" class="dock-btn"><span class="dock-ico" aria-hidden="true">🌴</span><span>Каникулы</span></a>
+        <a href="https://artignat2000.github.io/DopSchedule/" class="dock-btn"><span class="dock-ico" aria-hidden="true">💡</span><span>Доп</span></a>
+    </nav>
+
+    <script src="script.js"></script>
 </body>
 </html>
