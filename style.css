@@ -344,6 +344,29 @@ body {
 }
 @media (prefers-color-scheme: dark) { .walk-tag { color: #5cf28a; } }
 
+/* Приём пищи идёт сейчас — акцентная зелёная строка */
+.lesson.now {
+    background: rgba(52, 199, 89, 0.13);
+    box-shadow: inset 0 1px 0 rgba(52, 199, 89, 0.18), inset 0 -1px 0 rgba(52, 199, 89, 0.18);
+}
+.lesson.now:not(:first-child)::before { background: rgba(52, 199, 89, 0.35); }
+.lesson.now .name { color: #1d8a3f; }
+@media (prefers-color-scheme: dark) { .lesson.now .name { color: #5cf28a; } }
+.now-tag {
+    flex: none;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #1d8a3f;
+    background: rgba(52, 199, 89, 0.16);
+    border: 1px solid rgba(52, 199, 89, 0.35);
+    padding: 3px 9px;
+    border-radius: 999px;
+}
+@media (prefers-color-scheme: dark) { .now-tag { color: #5cf28a; } }
+
+/* Уже прошедший приём пищи */
+.lesson.done { opacity: 0.5; }
+
 .empty {
     text-align: center;
     color: var(--text2);
