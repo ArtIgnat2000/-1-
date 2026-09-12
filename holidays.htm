@@ -30,33 +30,37 @@
         <section class="card glass" aria-label="Периоды каникул">
             <h3 class="card-title">🗓️ Периоды каникул</h3>
             <div class="vac-summary">
-                <div class="vac-item">
+                <div class="vac-item" data-target="cal-oct" role="button" tabindex="0" title="Показать в календаре">
                     <span class="v-emoji">🍂</span>
                     <div>
                         <div class="v-name">Осенние каникулы</div>
                         <div class="v-dates">26 октября 2026 — 3 ноября 2026</div>
                     </div>
+                    <span class="v-arrow" aria-hidden="true">⌄</span>
                 </div>
-                <div class="vac-item">
+                <div class="vac-item" data-target="cal-dec" role="button" tabindex="0" title="Показать в календаре">
                     <span class="v-emoji">❄️</span>
                     <div>
                         <div class="v-name">Зимние каникулы</div>
                         <div class="v-dates">31 декабря 2026 — 10 января 2027</div>
                     </div>
+                    <span class="v-arrow" aria-hidden="true">⌄</span>
                 </div>
-                <div class="vac-item">
+                <div class="vac-item" data-target="cal-mar" role="button" tabindex="0" title="Показать в календаре">
                     <span class="v-emoji">🌱</span>
                     <div>
                         <div class="v-name">Весенние каникулы</div>
                         <div class="v-dates">27 марта 2027 — 4 апреля 2027</div>
                     </div>
+                    <span class="v-arrow" aria-hidden="true">⌄</span>
                 </div>
-                <div class="vac-item">
+                <div class="vac-item" data-target="cal-may" role="button" tabindex="0" title="Показать в календаре">
                     <span class="v-emoji">☀️</span>
                     <div>
                         <div class="v-name">Летние каникулы</div>
                         <div class="v-dates">27 мая 2027 — 31 августа 2027</div>
                     </div>
+                    <span class="v-arrow" aria-hidden="true">⌄</span>
                 </div>
             </div>
         </section>
@@ -117,7 +121,7 @@
     </div>
 
     <!-- Октябрь 2026 -->
-    <div class="cal-month glass">
+    <div class="cal-month glass" id="cal-oct">
       <h4>Октябрь 2026</h4>
       <div class="cal-grid">
         <div class="cal-dow">Пн</div>
@@ -215,7 +219,7 @@
     </div>
 
     <!-- Декабрь 2026 -->
-    <div class="cal-month glass">
+    <div class="cal-month glass" id="cal-dec">
       <h4>Декабрь 2026</h4>
       <div class="cal-grid">
         <div class="cal-dow">Пн</div>
@@ -353,7 +357,7 @@
     </div>
 
     <!-- Март 2027 -->
-    <div class="cal-month glass">
+    <div class="cal-month glass" id="cal-mar">
       <h4>Март 2027</h4>
       <div class="cal-grid">
         <div class="cal-dow">Пн</div>
@@ -445,7 +449,7 @@
     </div>
 
     <!-- Май 2027 -->
-    <div class="cal-month glass">
+    <div class="cal-month glass" id="cal-may">
       <h4>Май 2027</h4>
       <div class="cal-grid">
         <div class="cal-dow">Пн</div>
