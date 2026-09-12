@@ -505,9 +505,31 @@ body {
     background: rgba(52, 199, 89, 0.12);
     border: 1px solid rgba(52, 199, 89, 0.30);
 }
+.vac-item[data-target] {
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.vac-item[data-target]:hover { background: rgba(52, 199, 89, 0.20); }
+.vac-item[data-target]:active { transform: scale(0.97); }
+.vac-item[data-target]:focus-visible {
+    outline: 2px solid var(--tint);
+    outline-offset: 2px;
+}
 .vac-item .v-emoji { font-size: 26px; line-height: 1; flex: none; }
+.vac-item > div { flex: 1; min-width: 0; }
 .vac-item .v-name { font-weight: 700; font-size: 14.5px; }
 .vac-item .v-dates { color: var(--text2); font-size: 12.5px; font-weight: 500; margin-top: 2px; }
+.v-arrow {
+    flex: none;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 700;
+    color: #1d8a3f;
+    opacity: 0.55;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+@media (prefers-color-scheme: dark) { .v-arrow { color: #5cf28a; } }
+.vac-item[data-target]:hover .v-arrow { opacity: 1; transform: translateY(2px); }
 
 /* ── Каникулы: легенда ────────────────────────────────────────── */
 .legend-swatch {
@@ -599,6 +621,18 @@ body {
     border: 2px solid var(--tint);
     border-radius: 6px;
 }
+
+/* Подсветка месяца, к которому перешли по клику на период каникул */
+.cal-month.flash {
+    animation: cal-flash 2.2s ease;
+}
+@keyframes cal-flash {
+    0%   { box-shadow: var(--glass-shadow); }
+    12%  { box-shadow: 0 0 0 3px rgba(48, 209, 88, 0.95), 0 10px 40px rgba(48, 209, 88, 0.35); border-color: rgba(48, 209, 88, 0.9); }
+    100% { box-shadow: var(--glass-shadow); }
+}
+.months-grid.flash-target .cal-month:not(.flash) { opacity: 0.5; }
+.months-grid.flash-target .cal-month:not(.flash) .cal-day.today::after { border-color: var(--tint); opacity: 0.45; }
 
 /* ── Промо-карточка и кнопки-пилюли ───────────────────────────── */
 .promo-card { margin-top: 14px; border-radius: 24px; padding: 16px; text-align: center; }
