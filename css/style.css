@@ -1,0 +1,772 @@
+/* ============================================================
+   Каникулы · дизайн-система как в scool_shedule2026 (iOS 26 Liquid Glass)
+   Скопировано из расписания 4 «Б» + расширения для календаря
+   ============================================================ */
+
+:root {
+    --text: #111114;
+    --text2: rgba(60, 60, 67, 0.62);
+    --text3: rgba(60, 60, 67, 0.38);
+    --divider: rgba(60, 60, 67, 0.12);
+    --separator: rgba(60, 60, 67, 0.12);
+    --tint: #0a84ff;
+    --tint-soft: rgba(10, 132, 255, 0.12);
+    --green: #34c759;
+    --green-soft: rgba(52, 199, 89, 0.14);
+    --red: #ff3b30;
+    --red-soft: rgba(255, 59, 48, 0.10);
+    --orange: #ff9500;
+    --orange-soft: rgba(255, 149, 0, 0.12);
+    --glass-bg: linear-gradient(160deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.16));
+    --glass-border: rgba(255, 255, 255, 0.65);
+    --glass-inner: rgba(255, 255, 255, 0.55);
+    --glass-strong: rgba(255, 255, 255, 0.75);
+    --glass-shadow: 0 10px 40px rgba(40, 30, 110, 0.20), inset 0 1px 0 var(--glass-inner), inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+    --pill-active: rgba(255, 255, 255, 0.75);
+    --card-pad: 16px;
+    --tile: 38px;
+    --picto: 38px;
+    --radius-l: 24px;
+    --radius-m: 16px;
+    --radius-s: 11px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #ffffff;
+        --text2: rgba(235, 235, 245, 0.65);
+        --text3: rgba(235, 235, 245, 0.38);
+        --divider: rgba(255, 255, 255, 0.12);
+        --separator: rgba(255, 255, 255, 0.12);
+        --tint: #64d2ff;
+        --tint-soft: rgba(100, 210, 255, 0.18);
+        --green: #30d158;
+        --green-soft: rgba(48, 209, 88, 0.18);
+        --red: #ff453a;
+        --red-soft: rgba(255, 69, 58, 0.18);
+        --orange-soft: rgba(255, 159, 10, 0.18);
+        --glass-bg: linear-gradient(160deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+        --glass-border: rgba(255, 255, 255, 0.18);
+        --glass-inner: rgba(255, 255, 255, 0.20);
+        --glass-strong: rgba(44, 44, 46, 0.78);
+        --glass-shadow: 0 12px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+        --pill-active: rgba(255, 255, 255, 0.22);
+    }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    color: var(--text);
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    touch-action: manipulation;
+    background: transparent;
+}
+
+/* ── Живой градиентный фон ─────────────────────────────────── */
+.bg {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(170deg, #dcefff 0%, #e9e4ff 45%, #f5e0f0 100%);
+}
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.75;
+    will-change: transform;
+}
+.b1 { width: 55vmax; height: 55vmax; top: -18vmax; left: -16vmax; background: radial-gradient(circle, #6ec8ff 0%, transparent 65%); animation: drift1 26s ease-in-out infinite alternate; }
+.b2 { width: 50vmax; height: 50vmax; top: -10vmax; right: -20vmax; background: radial-gradient(circle, #a88bff 0%, transparent 65%); animation: drift2 32s ease-in-out infinite alternate; }
+.b3 { width: 48vmax; height: 48vmax; bottom: -18vmax; left: 10vmax; background: radial-gradient(circle, #ff9ad5 0%, transparent 65%); animation: drift3 38s ease-in-out infinite alternate; }
+.b4 { width: 42vmax; height: 42vmax; bottom: -12vmax; right: -8vmax; background: radial-gradient(circle, #54e6c0 0%, transparent 65%); animation: drift1 44s ease-in-out infinite alternate-reverse; }
+.b5 { width: 34vmax; height: 34vmax; top: 34%; left: 30%; background: radial-gradient(circle, #ffd166 0%, transparent 65%); opacity: 0.5; animation: drift2 50s ease-in-out infinite alternate-reverse; }
+
+@media (prefers-color-scheme: dark) {
+    .bg { background: linear-gradient(170deg, #141238 0%, #1c1440 45%, #301438 100%); }
+    .b1 { background: radial-gradient(circle, #2454ff 0%, transparent 65%); opacity: 0.6; }
+    .b2 { background: radial-gradient(circle, #7a3cff 0%, transparent 65%); opacity: 0.6; }
+    .b3 { background: radial-gradient(circle, #d6278a 0%, transparent 65%); opacity: 0.55; }
+    .b4 { background: radial-gradient(circle, #0e9f7e 0%, transparent 65%); opacity: 0.55; }
+    .b5 { background: radial-gradient(circle, #8a6d00 0%, transparent 65%); opacity: 0.4; }
+}
+
+@keyframes drift1 { from { transform: translate(0, 0) scale(1); } to { transform: translate(6vmax, 4vmax) scale(1.12); } }
+@keyframes drift2 { from { transform: translate(0, 0) scale(1.05); } to { transform: translate(-5vmax, 5vmax) scale(1); } }
+@keyframes drift3 { from { transform: translate(0, 0) scale(1); } to { transform: translate(4vmax, -5vmax) scale(1.15); } }
+
+/* ── Каркас ────────────────────────────────────────────────── */
+.app {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: calc(20px + env(safe-area-inset-top)) 16px 132px;
+}
+@media (max-width: 600px) {
+    .app { padding-left: 12px; padding-right: 12px; }
+}
+
+/* ── Шапка ─────────────────────────────────────────────────── */
+.hero {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 4px 18px;
+}
+.hero-icon {
+    flex: none;
+    width: 58px;
+    height: 58px;
+    border-radius: 15.5px;
+    display: grid;
+    place-items: center;
+    font-size: 27px;
+    background: linear-gradient(145deg, #4c6fff, #9b5cff);
+    box-shadow: 0 8px 22px rgba(76, 111, 255, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+/* каникулы — тёплый градиент, но в том же стиле */
+.hero-icon {
+    background: linear-gradient(145deg, #ff8a3d, #ff5e8a 55%, #9b5cff);
+    box-shadow: 0 8px 22px rgba(255, 94, 138, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+.hero h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+.hero .subtitle {
+    margin: 3px 0 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text2);
+}
+.hero-date {
+    margin-top: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--tint);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.hero-date::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tint);
+    box-shadow: 0 0 10px var(--tint);
+}
+
+/* ── Стекло ────────────────────────────────────────────────── */
+.glass {
+    position: relative;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(36px) saturate(180%);
+    -webkit-backdrop-filter: blur(36px) saturate(180%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass { background: rgba(248, 250, 255, 0.92); }
+    @media (prefers-color-scheme: dark) { .glass { background: rgba(28, 24, 56, 0.92); } }
+}
+
+/* ── Ссылка на V labs — как на расписании и питании ───────── */
+.nav-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 20px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    text-decoration: none;
+    color: var(--text);
+    transition: transform 0.15s ease;
+}
+.nav-card:active { transform: scale(0.98); }
+.nav-card .avatar {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    font-size: 23px;
+    line-height: 1;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.2));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.nav-card .texts { flex: 1; min-width: 0; }
+.nav-card .title {
+    display: block;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+.nav-card .sub {
+    display: block;
+    margin-top: 1px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── Сегментный переключатель ──────────────────────────────── */
+.segmented {
+    display: flex;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 15px;
+    margin-bottom: 14px;
+    position: relative;
+}
+.seg-indicator {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: 50%;
+    border-radius: 11px;
+    background: var(--pill-active);
+    box-shadow: 0 2px 10px rgba(30, 30, 80, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    transition: left 0.38s cubic-bezier(0.3, 0.9, 0.3, 1), width 0.38s cubic-bezier(0.3, 0.9, 0.3, 1);
+    z-index: 0;
+}
+.seg {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    border: none;
+    background: transparent;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text2);
+    padding: 9px 4px;
+    border-radius: 11px;
+    cursor: pointer;
+    transition: color 0.25s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.seg:active { transform: scale(0.94); }
+.seg.active { color: var(--text); }
+.seg.today::after {
+    content: "";
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--tint);
+    margin: 3px auto -3px;
+    opacity: 0.9;
+}
+
+/* ── Карточка обратного отсчёта ────────────────────────────── */
+.countdown-card {
+    border-radius: 24px;
+    padding: 16px;
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+.card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.card-head h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+.head-badge {
+    flex: none;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: var(--text2);
+    background: rgba(120, 120, 128, 0.10);
+    border: 1px solid rgba(120, 120, 128, 0.14);
+    padding: 4px 8px;
+    border-radius: 999px;
+}
+@media (prefers-color-scheme: dark) {
+    .head-badge { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); }
+}
+.countdown {
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-size: 14.5px;
+    font-weight: 700;
+    line-height: 1.35;
+    background: rgba(10, 132, 255, 0.10);
+    border: 1px solid rgba(10, 132, 255, 0.18);
+    color: var(--tint);
+    margin-bottom: 14px;
+}
+.countdown.vacation { background: var(--green-soft); border-color: rgba(52,199,89,0.22); color: var(--green); }
+.countdown.vacation.vac-opt { background: rgba(10,132,255,0.10); border-color: rgba(10,132,255,0.24); color: var(--tint); }
+.countdown.holiday,
+.countdown.weekend { background: var(--red-soft); border-color: rgba(255,69,58,0.18); color: var(--red); }
+.countdown.before-year,
+.countdown.after-year { background: var(--orange-soft); border-color: rgba(255,149,0,0.18); color: var(--orange); }
+@media (prefers-color-scheme: dark) {
+    .countdown.vacation { color: #5cf28a; }
+}
+
+/* ── Сводка периодов — как список уроков ───────────────────── */
+.vac-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.vac-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 12px;
+    border: 1px solid rgba(255,255,255,0.45);
+    border-radius: 16px;
+    background: linear-gradient(160deg, rgba(255,255,255,0.65), rgba(255,255,255,0.28));
+    box-shadow: 0 4px 16px rgba(40,30,110,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+    color: var(--text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.18s cubic-bezier(0.2,0.9,0.3,1.15), box-shadow 0.18s ease, background 0.18s ease;
+    -webkit-tap-highlight-color: transparent;
+    animation: rise 0.5s cubic-bezier(0.2,0.9,0.3,1.15) both;
+    animation-delay: calc(var(--i) * 55ms);
+}
+@keyframes rise {
+    from { opacity: 0; transform: translateY(10px) scale(0.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-color-scheme: dark) {
+    .vac-item {
+        background: linear-gradient(160deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+        border-color: rgba(255,255,255,0.14);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+}
+.vac-item:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 8px 24px rgba(40,30,110,0.12); }
+.vac-item:active { transform: scale(0.97); }
+.vac-item:focus-visible { outline: 2px solid var(--tint); outline-offset: 2px; }
+.vac-item.optional { opacity: 0.92; }
+
+.v-picto {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    line-height: 1;
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
+}
+@media (prefers-color-scheme: dark) {
+    .v-picto { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.18); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14); }
+}
+.v-info { flex: 1; min-width: 0; }
+.v-name {
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.v-dates {
+    margin-top: 2px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-variant-numeric: tabular-nums;
+}
+.v-chevron {
+    flex: none;
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--text2);
+    opacity: 0.55;
+    margin-left: 2px;
+}
+
+/* вариант: каникулы зелёные, как walk в расписании */
+.vac-item.is-vacation {
+    background: linear-gradient(160deg, rgba(52,199,89,0.18), rgba(52,199,89,0.06));
+    border-color: rgba(52,199,89,0.22);
+}
+@media (prefers-color-scheme: dark) {
+    .vac-item.is-vacation { background: linear-gradient(160deg, rgba(48,209,88,0.22), rgba(48,209,88,0.08)); }
+}
+/* доп. каникулы 1 класса — голубые карточки, а не зелёные */
+.vac-item.is-vacation.optional {
+    background: linear-gradient(160deg, rgba(10,132,255,0.16), rgba(10,132,255,0.06));
+    border-color: rgba(10,132,255,0.26);
+    opacity: 1;
+}
+@media (prefers-color-scheme: dark) {
+    .vac-item.is-vacation.optional { background: linear-gradient(160deg, rgba(100,210,255,0.22), rgba(100,210,255,0.08)); }
+}
+
+/* ── Легенда — как rating-card ─────────────────────────────── */
+.legend-card {
+    border-radius: 24px;
+    padding: 6px 0 10px;
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+.legend-card h3 {
+    margin: 0;
+    padding: 12px var(--card-pad) 8px;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--text2);
+}
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    padding: 0 var(--card-pad) 6px;
+}
+.legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+    background: rgba(120,120,128,0.08);
+    border: 1px solid rgba(120,120,128,0.10);
+    padding: 6px 10px;
+    border-radius: 999px;
+}
+@media (prefers-color-scheme: dark) {
+    .legend span { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.10); }
+}
+.legend i.li {
+    width: 16px;
+    height: 16px;
+    border-radius: 5px;
+    display: inline-block;
+    border: 1px solid var(--divider);
+    flex: none;
+}
+.legend i.li-school { background: rgba(255,255,255,0.72); }
+@media (prefers-color-scheme: dark) { .legend i.li-school { background: rgba(255,255,255,0.14); } }
+.legend i.li-off { background: rgba(255,255,255,0.72); position: relative; }
+.legend i.li-off::after {
+    content: "";
+    position: absolute; inset: 3px;
+    border-radius: 50%;
+    background: var(--red);
+    opacity: 0.85;
+}
+.legend i.li-vac { background: var(--green-soft); border-color: rgba(52,199,89,0.22); }
+.legend i.li-vacopt { background: rgba(10,132,255,0.18); border-color: rgba(10,132,255,0.30); }
+.legend i.li-today { background: transparent; border: 2px solid var(--tint); }
+
+/* ── Сетка месяцев ─────────────────────────────────────────── */
+/* По умолчанию 3 в ряд на компе, автоматически 2/1 на узких экранах */
+.months-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+@media (max-width: 1080px) {
+    .months-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px) {
+    .months-grid { grid-template-columns: 1fr; }
+}
+
+.cal-month {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(36px) saturate(180%);
+    -webkit-backdrop-filter: blur(36px) saturate(180%);
+    border-radius: 24px;
+    padding: 14px 14px 16px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .cal-month { background: rgba(248,250,255,0.92); }
+    @media (prefers-color-scheme: dark) { .cal-month { background: rgba(28,24,56,0.92); } }
+}
+.cal-month h3 {
+    margin: 2px 4px 12px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.cal-month h3::after {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--divider);
+    opacity: 0.9;
+}
+.cal-month.period-focus {
+    border-color: rgba(52,199,89,0.55);
+    box-shadow: 0 0 0 3px rgba(52,199,89,0.22), var(--glass-shadow);
+    transform: translateY(-1px);
+}
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+.cal-dow {
+    text-align: center;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--text3);
+    padding: 4px 0 8px;
+    text-transform: uppercase;
+}
+.cal-dow.we { color: var(--red); opacity: 0.8; }
+
+.cal-day {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 14.5px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    background: rgba(255,255,255,0.52);
+    border: 1px solid rgba(255,255,255,0.45);
+    color: var(--text);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
+    transition: transform 0.14s ease, background 0.14s ease, border-color 0.14s ease;
+    user-select: none;
+}
+@media (prefers-color-scheme: dark) {
+    .cal-day {
+        background: rgba(255,255,255,0.08);
+        border-color: rgba(255,255,255,0.10);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+}
+.cal-day.blank { background: transparent; border-color: transparent; box-shadow: none; }
+
+.cal-day.off {
+    color: var(--red);
+    font-weight: 700;
+    background: rgba(255,255,255,0.62);
+}
+@media (prefers-color-scheme: dark) {
+    .cal-day.off { background: rgba(255,255,255,0.10); }
+}
+.cal-day.vac {
+    background: linear-gradient(145deg, rgba(52,199,89,0.22), rgba(52,199,89,0.12));
+    border-color: rgba(52,199,89,0.24);
+    color: var(--text);
+    font-weight: 700;
+}
+@media (prefers-color-scheme: dark) {
+    .cal-day.vac { background: linear-gradient(145deg, rgba(48,209,88,0.24), rgba(48,209,88,0.14)); border-color: rgba(48,209,88,0.26); }
+}
+.cal-day.vac.off { color: var(--text); } /* каникулы перекрывают красный */
+.cal-day.vac-opt {
+    background: linear-gradient(145deg, rgba(10,132,255,0.20), rgba(10,132,255,0.10));
+    border-color: rgba(10,132,255,0.28);
+    color: var(--text);
+    font-weight: 700;
+}
+@media (prefers-color-scheme: dark) {
+    .cal-day.vac-opt { background: linear-gradient(145deg, rgba(100,210,255,0.24), rgba(100,210,255,0.12)); border-color: rgba(100,210,255,0.30); }
+}
+.cal-day.vac-opt.off { color: var(--text); } /* доп. каникулы 1 класса перекрывают красный */
+
+.cal-day.today::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border: 2.5px solid var(--tint);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(10,132,255,0.25);
+    pointer-events: none;
+}
+.cal-day.special::before {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--tint);
+    box-shadow: 0 0 6px var(--tint);
+}
+.cal-day.vac-opt.period-focus {
+    box-shadow: inset 0 0 0 2px var(--tint), 0 4px 14px rgba(10,132,255,0.25);
+}
+.cal-day.period-focus {
+    box-shadow: inset 0 0 0 2px var(--green), 0 4px 14px rgba(52,199,89,0.22);
+    transform: scale(1.04);
+    z-index: 1;
+    animation: periodPulse 1.6s ease-in-out 2;
+}
+@keyframes periodPulse {
+    0%,100% { filter: brightness(1); }
+    50% { filter: brightness(1.06); }
+}
+
+/* ── Общее для карточек как в расписании ───────────────────── */
+.day-card { border-radius: 24px; padding: 6px 0; overflow: hidden; }
+.day-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px var(--card-pad) 10px;
+}
+.day-head h2 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; }
+.today-chip { display: none; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--tint); background: rgba(10,132,255,0.14); border: 1px solid rgba(10,132,255,0.28); padding: 4px 10px; border-radius: 999px; }
+.today-chip.show { display: inline-flex; }
+.schedule { display: none; } .schedule.show { display: block; }
+
+/* Уроки — оставляем для совместимости если понадобятся */
+.lesson { position: relative; display: flex; align-items: center; gap: 12px; padding: 11px var(--card-pad); animation: rise 0.5s cubic-bezier(0.2,0.9,0.3,1.15) both; animation-delay: calc(var(--i) * 42ms); }
+.lesson:not(:first-child)::before { content:""; position:absolute; top:0; left:calc(var(--card-pad) + var(--tile) + var(--picto) + 24px); right:var(--card-pad); height:1px; background:var(--divider); }
+.tile { flex:none; width:var(--tile); height:var(--tile); border-radius:11px; display:grid; place-items:center; font-size:15px; font-weight:800; letter-spacing:-0.2px; font-variant-numeric: tabular-nums; color:var(--text); background:rgba(120,120,128,0.10); border:1px solid rgba(120,120,128,0.14); }
+@media (prefers-color-scheme: dark){ .tile{ background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.12);} }
+.picto { flex:none; width:var(--picto); height:var(--picto); border-radius:12px; display:grid; place-items:center; font-size:21px; line-height:1; background:rgba(255,255,255,0.38); border:1px solid rgba(255,255,255,0.5); box-shadow:inset 0 1px 0 rgba(255,255,255,0.55); }
+@media (prefers-color-scheme: dark){ .picto{ background:rgba(255,255,255,0.10); border-color:rgba(255,255,255,0.16); box-shadow:inset 0 1px 0 rgba(255,255,255,0.14);} }
+.lesson .info{ flex:1; min-width:0; } .lesson .name{ font-size:18px; font-weight:700; letter-spacing:-0.3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lesson .time{ margin-top:3px; font-size:13.5px; font-weight:500; color:var(--text2); font-variant-numeric: tabular-nums; }
+.chev{ flex:none; font-size:22px; font-weight:300; color:var(--text2); opacity:0.55; margin-top:-3px; }
+
+/* ── Ошибка ────────────────────────────────────────────────── */
+.error-card {
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 14px;
+    display: none;
+    color: #c62828;
+    background: rgba(255, 69, 58, 0.14);
+    border-color: rgba(255, 69, 58, 0.4);
+    font-weight: 600;
+    font-size: 15px;
+}
+.error-card.show { display: block; }
+@media (prefers-color-scheme: dark) { .error-card { color: #ff8a80; } }
+
+/* ── Док ───────────────────────────────────────────────────── */
+.dock {
+    position: fixed;
+    left: 50%;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    border-radius: 26px;
+    z-index: 50;
+    white-space: nowrap;
+    max-width: calc(100vw - 24px);
+}
+.dock-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+.dock-btn:hover { background: rgba(255, 255, 255, 0.22); }
+.dock-btn:active { transform: scale(0.94); }
+.dock-btn.current { background: var(--pill-active); box-shadow: 0 2px 10px rgba(30,30,80,0.12), inset 0 1px 0 rgba(255,255,255,0.55); }
+@media (prefers-color-scheme: dark) {
+    .dock-btn:hover { background: rgba(255, 255, 255, 0.12); }
+    .dock-btn.current { box-shadow: 0 2px 10px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.14); }
+}
+.dock-ico {
+    width: 28px;
+    height: 28px;
+    border-radius: 8.5px;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.2));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+@media (max-width: 420px) {
+    .dock-btn { padding: 8px 11px; font-size: 13px; gap: 6px; }
+    .dock-ico { width: 26px; height: 26px; font-size: 14px; }
+}
+
+/* ── Футер ─────────────────────────────────────────────────── */
+footer {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    padding: 18px 0 0;
+}
+
+/* ── Адаптив ───────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .app { padding-left: 12px; padding-right: 12px; }
+    .hero h1 { font-size: 28px; }
+    .hero-icon { width: 52px; height: 52px; font-size: 24px; border-radius: 13px; }
+    .vac-summary { grid-template-columns: 1fr; }
+    .cal-month { padding: 12px 10px 14px; }
+    .cal-day { border-radius: 10px; font-size: 13.5px; }
+    .cal-day.today::after { border-radius: 10px; }
+}
+@media (max-width: 420px) {
+    :root { --tile: 34px; --picto: 34px; }
+    .tile { font-size: 14px; }
+    .picto { font-size: 18px; border-radius: 10px; }
+    .v-picto { width: 36px; height: 36px; font-size: 18px; border-radius: 10px; }
+    .v-name { font-size: 14px; }
+    .legend span { font-size: 12.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
